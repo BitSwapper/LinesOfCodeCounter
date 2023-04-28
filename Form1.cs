@@ -22,7 +22,7 @@ public partial class Form1 : Form
     DataGridColorHelper dataGridColorHelper;
     public string FolderToExamine { get; private set; }
     List<string> acceptedFileTypes = new() {".cs", ".py"};
-    List<string> excludedFileTypes = new() {@"\bin", @"\obj", @"\Properties", @"\Debug", @"\Release"};
+    List<string> excludedFileTypes = new() {@"\bin", @"\obj", @"\Properties", @"\Debug", @"\Release", @"\LeanTween", @"\ThirdParty"};
     List<CodeFile> codeFiles = new();
 
     long totalFiles = 0;
@@ -94,9 +94,9 @@ public partial class Form1 : Form
 
         labelFilezCounted.Text = "Files Analyzed: " + totalFiles;
         labelTotalLines.Text = "Total Lines Of Code: " + totalLines;
-        labelTotalChars.Text = "Total Chars: " + totalCharacters;
+        labelTotalChars.Text = "Total Letters: " + totalCharacters;
         labelAvgLines.Text = "Avg Lines / File: " + avgLinesPerFile;
-        labelAvgChars.Text = "Avg Chars / File: " + avgCharsPerFile;
+        labelAvgChars.Text = "Avg Letters / File: " + avgCharsPerFile;
     }
 
 

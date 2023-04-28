@@ -229,9 +229,9 @@
             this.labelTotalChars.ForeColor = System.Drawing.Color.White;
             this.labelTotalChars.Location = new System.Drawing.Point(567, 91);
             this.labelTotalChars.Name = "labelTotalChars";
-            this.labelTotalChars.Size = new System.Drawing.Size(71, 15);
+            this.labelTotalChars.Size = new System.Drawing.Size(76, 15);
             this.labelTotalChars.TabIndex = 18;
-            this.labelTotalChars.Text = "Total Chars: ";
+            this.labelTotalChars.Text = "Total Letters: ";
             // 
             // Form1
             // 
