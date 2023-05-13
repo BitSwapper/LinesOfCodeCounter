@@ -101,7 +101,6 @@ public partial class FormMain : Form
         }
     }
 
-
     void buttonQuit_Click(object sender, EventArgs e) => Environment.Exit(0);
 
     void buttonMinimize_Click(object sender, EventArgs e) => this.WindowState = FormWindowState.Minimized;

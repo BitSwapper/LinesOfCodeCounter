@@ -28,7 +28,6 @@ public static class DataGridViewFiller
     }
 
 
-
     static void FillDataGridView(HashSet<CodeFile> codeFiles, DataGridView dataGridView)
     {
         var dt = new DataTable();
@@ -47,6 +46,7 @@ public static class DataGridViewFiller
 
         dataGridView.DataSource = dt;
     }
+
 
     static void SetColumnStyles(DataGridView dataGridView)
     {
