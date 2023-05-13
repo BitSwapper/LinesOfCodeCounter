@@ -7,6 +7,7 @@ public static class NativeImports
 
     [DllImport("user32.dll", CharSet = CharSet.Auto)]
     public static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, nuint wParam, nint lParam);
+
     [DllImport("user32.dll")]
     public static extern bool ReleaseCapture();
 }

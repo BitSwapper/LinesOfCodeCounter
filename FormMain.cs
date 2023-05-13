@@ -4,8 +4,6 @@ namespace LinesOfCodeCounter;
 
 public partial class FormMain : Form
 {
-
-
     string FolderToExamine { get; set; }
     DataGridColorHelper dataGridColorHelper;
     HashSet<string> acceptedFileTypes = new() {".cs", ".py"};
@@ -15,41 +13,41 @@ public partial class FormMain : Form
 
     public FormMain() => InitializeComponent();
 
-
     void Form1_Load(object sender, EventArgs e)
     {
-        dataGridColorHelper = new(dataGridView1, this.Font);
-
         FillTextBoxDefaults();
+        SetupDataGridView();
 
-        EnableDoubleBufferedDataGrid();
-        dataGridView1.ForeColor = dataGridColorHelper.TextColor;
-    }
+        void FillTextBoxDefaults()
+        {
+            UserInputConverter.FillTextFromList(acceptedFileTypes, richTextBoxAllowedFiles);
+            UserInputConverter.FillTextFromList(excludedFileTypes, richTextBoxExcludedFiles);
+        }
 
+        void SetupDataGridView()
+        {
+            EnableDoubleBufferedDataGrid();
+            dataGridColorHelper = new(dataGridView1, this.Font);
+            dataGridView1.ForeColor = dataGridColorHelper.TextColor;
+        }
 
-    void FillTextBoxDefaults()
-    {
-        UserInputConverter.FillTextFromList(acceptedFileTypes, richTextBoxAllowedFiles);
-        UserInputConverter.FillTextFromList(excludedFileTypes, richTextBoxExcludedFiles);
-    }
-
-
-    void EnableDoubleBufferedDataGrid() => typeof(DataGridView).InvokeMember(
+        void EnableDoubleBufferedDataGrid() => typeof(DataGridView).InvokeMember(
             "DoubleBuffered",
             BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty,
             null,
             dataGridView1,
             new object[] { true });
+    }
 
 
     void buttonSelectFolder_Click(object sender, EventArgs e)
     {
-        using(var fbd = new FolderBrowserDialog())
+        using(var folderBrowser = new FolderBrowserDialog())
         {
-            DialogResult result = fbd.ShowDialog();
+            DialogResult result = folderBrowser.ShowDialog();
 
-            if(result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
-                FolderToExamine = fbd.SelectedPath;
+            if(result == DialogResult.OK && !string.IsNullOrWhiteSpace(folderBrowser.SelectedPath))
+                FolderToExamine = folderBrowser.SelectedPath;
         }
 
         labelSelectedFolder.Text = "Examining Folder: " + FolderToExamine;
@@ -61,6 +59,7 @@ public partial class FormMain : Form
         if(string.IsNullOrEmpty(FolderToExamine)) return;
 
         UpdateSettings();
+
         if(TryGetResults(out CodeAnalysisResult? result))
             UpdateUILabels(result!);
 

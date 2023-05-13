@@ -9,9 +9,9 @@ internal class DataGridColorHelper
     Font font;
     DataGridView dataGridView;
     StringFormat centerFormat;
-    SolidBrush BgColorBrush;
-    SolidBrush LineColorABrush;
-    SolidBrush LineColorBBrush;
+    SolidBrush brushBgColor;
+    SolidBrush brushLineColorA;
+    SolidBrush brushLineColorB;
 
 
     public DataGridColorHelper(DataGridView dataGridView, Font font)
@@ -25,9 +25,9 @@ internal class DataGridColorHelper
             LineAlignment = StringAlignment.Center
         };
 
-        BgColorBrush = new SolidBrush(BgColor);
-        LineColorABrush = new SolidBrush(LineColorA);
-        LineColorBBrush = new SolidBrush(LineColorB);
+        brushBgColor = new SolidBrush(BgColor);
+        brushLineColorA = new SolidBrush(LineColorA);
+        brushLineColorB = new SolidBrush(LineColorB);
     }
 
 
@@ -38,7 +38,7 @@ internal class DataGridColorHelper
             Rectangle r = dataGridView.GetColumnDisplayRectangle(i, true);
             if(r.Width == 0) continue;
             r = new Rectangle(r.Left, 0, r.Width, dataGridView.ColumnHeadersHeight);
-            e.Graphics.FillRectangle(BgColorBrush, r);
+            e.Graphics.FillRectangle(brushBgColor, r);
             e.Graphics.DrawString(dataGridView.Columns[i].HeaderText, font, Brushes.WhiteSmoke, r, centerFormat);
         }
     }
@@ -50,7 +50,7 @@ internal class DataGridColorHelper
         {
             e.PaintBackground(e.ClipBounds, true);
             Rectangle rect = e.CellBounds;
-            e.Graphics.FillRectangle(LineColorBBrush, rect);
+            e.Graphics.FillRectangle(brushLineColorB, rect);
             e.PaintContent(e.ClipBounds);
             e.Handled = true;
 
@@ -69,9 +69,9 @@ internal class DataGridColorHelper
 
         var headerBounds = new Rectangle(e.RowBounds.Left, e.RowBounds.Top, grid.RowHeadersWidth, e.RowBounds.Height);
         if(e.RowIndex % 2 == 0)
-            e.Graphics.FillRectangle(LineColorBBrush, headerBounds);
+            e.Graphics.FillRectangle(brushLineColorB, headerBounds);
         else
-            e.Graphics.FillRectangle(LineColorABrush, headerBounds);
+            e.Graphics.FillRectangle(brushLineColorA, headerBounds);
         e.Graphics.DrawString(rowIdx, font, Brushes.WhiteSmoke, headerBounds, centerFormat);
     }
 

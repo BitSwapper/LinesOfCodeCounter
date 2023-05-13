@@ -1,4 +1,5 @@
 ﻿namespace LinesOfCodeCounter;
+
 public static class UserInputConverter
 {
     public static void ConvertUserInputsToRealSettings(ref HashSet<string> acceptedFileTypes, ref HashSet<string> excludedFileTypes, RichTextBox richTextBoxAllowedFiles, RichTextBox richTextBoxExcludedFiles)
