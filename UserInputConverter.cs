@@ -1,13 +1,13 @@
 ﻿namespace LinesOfCodeCounter;
 public static class UserInputConverter
 {
-    public static void ConvertUserInputsToRealSettings(ref List<string> acceptedFileTypes, ref List<string> excludedFileTypes, RichTextBox richTextBoxAllowedFiles, RichTextBox richTextBoxExcludedFiles)
+    public static void ConvertUserInputsToRealSettings(ref HashSet<string> acceptedFileTypes, ref HashSet<string> excludedFileTypes, RichTextBox richTextBoxAllowedFiles, RichTextBox richTextBoxExcludedFiles)
     {
         FillListFromText(ref acceptedFileTypes, richTextBoxAllowedFiles);
         FillListFromText(ref excludedFileTypes, richTextBoxExcludedFiles);
     }
 
-    public static void FillTextFromList(List<string> list, RichTextBox textBox)
+    public static void FillTextFromList(HashSet<string> list, RichTextBox textBox)
     {
         textBox.Text = "";
         foreach(var line in list)
@@ -15,7 +15,7 @@ public static class UserInputConverter
                 textBox.Text += line + Environment.NewLine;
     }
 
-    public static void FillListFromText(ref List<string> list, RichTextBox textBox)
+    public static void FillListFromText(ref HashSet<string> list, RichTextBox textBox)
     {
         list = new();
 

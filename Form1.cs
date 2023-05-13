@@ -21,8 +21,8 @@ public partial class Form1 : Form
 
     DataGridColorHelper dataGridColorHelper;
     public string FolderToExamine { get; private set; }
-    List<string> acceptedFileTypes = new() {".cs", ".py"};
-    List<string> excludedFileTypes = new() {@"\bin", @"\obj", @"\Properties", @"\Debug", @"\Release", @"\LeanTween", @"\ThirdParty"};
+    HashSet<string> acceptedFileTypes = new() {".cs", ".py"};
+    HashSet<string> excludedFileTypes = new() {@"\bin", @"\obj", @"\Properties", @"\Debug", @"\Release", @"\LeanTween", @"\ThirdParty"};
     List<CodeFile> codeFiles = new();
 
     long totalFiles = 0;
