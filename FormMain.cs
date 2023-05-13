@@ -13,7 +13,9 @@ public partial class FormMain : Form
 
     public FormMain() => InitializeComponent();
 
-    void Form1_Load(object sender, EventArgs e)
+    void Form1_Load(object sender, EventArgs e) => SetupUI();
+
+    private void SetupUI()
     {
         FillTextBoxDefaults();
         SetupDataGridView();
@@ -29,14 +31,15 @@ public partial class FormMain : Form
             EnableDoubleBufferedDataGrid();
             dataGridColorHelper = new(dataGridView1, this.Font);
             dataGridView1.ForeColor = dataGridColorHelper.TextColor;
-        }
 
-        void EnableDoubleBufferedDataGrid() => typeof(DataGridView).InvokeMember(
+
+            void EnableDoubleBufferedDataGrid() => typeof(DataGridView).InvokeMember(
             "DoubleBuffered",
             BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty,
             null,
             dataGridView1,
             new object[] { true });
+        }
     }
 
 
