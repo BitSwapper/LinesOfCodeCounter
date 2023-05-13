@@ -91,9 +91,9 @@ public partial class FormMain : Form
             if(result == null) return;
             labelFilezCounted.Text = "Files Analyzed: " + result.TotalFiles;
             labelTotalLines.Text = "Total Lines Of Code: " + result.TotalLines;
-            labelTotalChars.Text = "Total Letters: " + result.TotalCharacters;
+            labelTotalChars.Text = "Total Characters: " + result.TotalCharacters;
             labelAvgLines.Text = "Avg Lines / File: " + result.AverageLinesPerFile;
-            labelAvgChars.Text = "Avg Letters / File: " + result.AverageCharactersPerLine;
+            labelAvgChars.Text = "Avg Characters / File: " + result.AverageCharactersPerLine;
         }
     }
 
