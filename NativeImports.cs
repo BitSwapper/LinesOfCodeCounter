@@ -1,8 +1,7 @@
 ﻿using System.Runtime.InteropServices;
 
-public static class FormMainHelpers
+public static class NativeImports
 {
-
     public const int WM_NCLBUTTONDOWN = 0xA1;
     public const int HT_CAPTION = 0x2;
 

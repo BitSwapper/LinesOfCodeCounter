@@ -61,7 +61,8 @@ public partial class FormMain : Form
         if(string.IsNullOrEmpty(FolderToExamine)) return;
 
         UpdateSettings();
-        UpdateUILabels(GetResults());
+        if(TryGetResults(out CodeAnalysisResult? result))
+            UpdateUILabels(result!);
 
 
         void UpdateSettings()
@@ -70,15 +71,17 @@ public partial class FormMain : Form
             DataGridViewFiller.GenerateAndFillDataGridView(ref codeFiles, dataGridView1, FolderToExamine, acceptedFileTypes, excludedFileTypes);
         }
 
-        CodeAnalysisResult GetResults()
+        bool TryGetResults(out CodeAnalysisResult? result)
         {
             if(codeFiles?.Count <= 0)
             {
                 MessageBox.Show("No matches found. Assure file extensions you want are inlcuded.");
-                return null;
+                result = null;
+                return false;
             }
 
-            return new CodeAnalysisService().AnalyzeCode(ref codeFiles!, FolderToExamine, acceptedFileTypes, excludedFileTypes);
+            result = new CodeAnalysisService().AnalyzeCode(codeFiles!);
+            return true;
         }
 
         void UpdateUILabels(CodeAnalysisResult result)
@@ -97,8 +100,8 @@ public partial class FormMain : Form
     {
         if(e.Button == MouseButtons.Left)
         {
-            FormMainHelpers.ReleaseCapture();
-            FormMainHelpers.SendMessage(Handle, FormMainHelpers.WM_NCLBUTTONDOWN, FormMainHelpers.HT_CAPTION, 0);
+            NativeImports.ReleaseCapture();
+            NativeImports.SendMessage(Handle, NativeImports.WM_NCLBUTTONDOWN, NativeImports.HT_CAPTION, 0);
         }
     }
 
