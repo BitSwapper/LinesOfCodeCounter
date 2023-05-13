@@ -4,29 +4,17 @@ public static class UserInputConverter
 {
     public static void ConvertUserInputsToRealSettings(ref HashSet<string> acceptedFileTypes, ref HashSet<string> excludedFileTypes, RichTextBox richTextBoxAllowedFiles, RichTextBox richTextBoxExcludedFiles)
     {
-        FillListFromText(ref acceptedFileTypes, richTextBoxAllowedFiles);
-        FillListFromText(ref excludedFileTypes, richTextBoxExcludedFiles);
+        acceptedFileTypes = FillHashSetFromText(richTextBoxAllowedFiles);
+        excludedFileTypes = FillHashSetFromText(richTextBoxExcludedFiles);
     }
 
-    public static void FillTextBoxesWithSettings(ref HashSet<string> acceptedFileTypes, ref HashSet<string> excludedFileTypes, RichTextBox richTextBoxAllowedFiles, RichTextBox richTextBoxExcludedFiles)
+    public static void FillTextBoxesWithSettings(HashSet<string> acceptedFileTypes, HashSet<string> excludedFileTypes, RichTextBox richTextBoxAllowedFiles, RichTextBox richTextBoxExcludedFiles)
     {
-        FillTextBoxFromList(acceptedFileTypes, richTextBoxAllowedFiles);
-        FillTextBoxFromList(excludedFileTypes, richTextBoxExcludedFiles);
+        FillTextBoxFromHashSet(acceptedFileTypes, richTextBoxAllowedFiles);
+        FillTextBoxFromHashSet(excludedFileTypes, richTextBoxExcludedFiles);
     }
 
-    static void FillTextBoxFromList(HashSet<string> list, RichTextBox textBox)
-    {
-        textBox.Text = "";
-        foreach(var line in list)
-            if(line != string.Empty)
-                textBox.Text += line + Environment.NewLine;
-    }
+    private static void FillTextBoxFromHashSet(HashSet<string> hashSet, RichTextBox textBox) => textBox.Text = string.Join(Environment.NewLine, hashSet.Where(line => !string.IsNullOrEmpty(line)));
 
-    static void FillListFromText(ref HashSet<string> list, RichTextBox textBox)
-    {
-        list = new();
-        foreach(var line in textBox.Lines)
-            if(line != string.Empty)
-                list.Add(line);
-    }
+    private static HashSet<string> FillHashSetFromText(RichTextBox textBox) => new HashSet<string>(textBox.Lines.Where(line => !string.IsNullOrEmpty(line)));
 }

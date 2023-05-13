@@ -2,64 +2,55 @@
 using System.Data;
 
 namespace LinesOfCodeCounter;
+
 public static class DataGridViewFiller
 {
-    static DateTime startTime;
     public static void GenerateAndFillDataGridView(ref HashSet<CodeFile> codeFiles, DataGridView dataGridView, string destFolder, HashSet<string> acceptedFileTypes, HashSet<string> excludedFolders)
     {
-        startTime = DateTime.Now;
-        string[] directories = System.IO.Directory.GetDirectories(destFolder,"*", System.IO.SearchOption.AllDirectories);
+        var startTime = DateTime.Now;
+        var directories = Directory.GetDirectories(destFolder, "*", SearchOption.AllDirectories).Select(d => new DirectoryInfo(d)).ToList();
+        directories.Add(new DirectoryInfo(destFolder));
+        var concurrentFiles = new ConcurrentBag<CodeFile>();
 
-        DirectoryInfo root = new DirectoryInfo(destFolder);
-        List<DirectoryInfo> allDirs = directories.Select(d => new DirectoryInfo(d)).ToList();
-        allDirs.Add(root);
-
-        ConcurrentBag<CodeFile> concurrentFiles = new();
-
-        Parallel.ForEach(allDirs, dir =>
+        directories.AsParallel().ForAll(dir =>
         {
-            foreach(var file in dir.GetFiles())
-            {
-                if(excludedFolders.Any(folder => file.FullName.Contains(folder)))
-                    continue;
-
-                CodeFile newFile = new CodeFile(file);
-                if(acceptedFileTypes.Contains(newFile.FileExtension))
-                    concurrentFiles.Add(newFile);
-            }
+            foreach(var file in dir.GetFiles().Where(file => !excludedFolders.Any(folder => file.FullName.Contains(folder)) && acceptedFileTypes.Contains(file.Extension)))
+                concurrentFiles.Add(new CodeFile(file));
         });
 
         codeFiles = concurrentFiles.ToHashSet();
 
         FillDataGridView(codeFiles, dataGridView);
-        dataGridView.Columns[0].DefaultCellStyle.BackColor = Color.DarkSlateGray;
-        dataGridView.Columns[2].DefaultCellStyle.BackColor = Color.DarkSlateGray;
-        dataGridView.ColumnHeadersDefaultCellStyle.BackColor = Color.DarkSlateGray;
-
+        SetColumnStyles(dataGridView);
         MessageBox.Show((DateTime.Now - startTime).TotalSeconds.ToString());
     }
 
-    static void FillDataGridView(HashSet<CodeFile> codeFiles, DataGridView dataGridView)
+    private static void FillDataGridView(HashSet<CodeFile> codeFiles, DataGridView dataGridView)
     {
-        DataTable dt = new DataTable();
-        dt.Columns.Add("File name", typeof(string));
-        dt.Columns.Add("Lines of code", typeof(long));
-        dt.Columns.Add("Characters in file", typeof(long));
-        dt.Columns.Add("Longest line", typeof(long));
-        dt.Columns.Add("Extension", typeof(string));
-        dt.Columns.Add("Location", typeof(string));
-
-        foreach(var curFile in codeFiles.OrderByDescending(c => c.TotalLinesOfCode))
+        var dt = new DataTable();
+        dt.Columns.AddRange(new DataColumn[]
         {
-            DataRow dr = dt.NewRow();
-            dr[0] = curFile.FileName;
-            dr[1] = curFile.TotalLinesOfCode;
-            dr[2] = curFile.TotalCharacterCount;
-            dr[3] = curFile.LongestLineOfCode;
-            dr[4] = curFile.FileExtension;
-            dr[5] = curFile.FileLocation;
-            dt.Rows.Add(dr);
-        }
+            new DataColumn("File name", typeof(string)),
+            new DataColumn("Lines of code", typeof(long)),
+            new DataColumn("Characters in file", typeof(long)),
+            new DataColumn("Longest line", typeof(long)),
+            new DataColumn("Extension", typeof(string)),
+            new DataColumn("Location", typeof(string))
+        });
+
+        codeFiles.OrderByDescending(c => c.TotalLinesOfCode).ToList().ForEach(curFile =>
+        {
+            dt.Rows.Add(curFile.FileName, curFile.TotalLinesOfCode, curFile.TotalCharacterCount, curFile.LongestLineOfCode, curFile.FileExtension, curFile.FileLocation);
+        });
+
         dataGridView.DataSource = dt;
+    }
+
+    private static void SetColumnStyles(DataGridView dataGridView)
+    {
+        foreach(DataGridViewColumn column in dataGridView.Columns)
+            column.DefaultCellStyle.BackColor = Color.DarkSlateGray;
+
+        dataGridView.ColumnHeadersDefaultCellStyle.BackColor = Color.DarkSlateGray;
     }
 }
