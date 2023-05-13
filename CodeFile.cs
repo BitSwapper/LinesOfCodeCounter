@@ -1,29 +1,27 @@
-﻿namespace LinesOfCodeCounter;
-
-public class CodeFile
+﻿namespace LinesOfCodeCounter
 {
-    readonly FileInfo _fileInfo;
-    public string FileLocation { get; }
-    public string FileName { get; }
-    public string FileExtension { get; }
-    public long TotalLinesOfCode { get; set; }
-    public long TotalCharacterCount { get; set; }
-    public long LongestLineOfCode { get; set; }
-
-    public CodeFile(FileInfo fileInfo)
+    public record CodeFile
     {
-        _fileInfo = fileInfo ?? throw new ArgumentNullException(nameof(fileInfo));
+        public FileInfo FileInfo { get; init; }
+        public string FileLocation { get; init; }
+        public string FileName { get; init; }
+        public string FileExtension { get; init; }
+        public long TotalLinesOfCode { get; set; }
+        public long TotalCharacterCount { get; set; }
+        public long LongestLineOfCode { get; set; }
 
-        FileName = Path.GetFileNameWithoutExtension(fileInfo.Name);
-        FileLocation = fileInfo.DirectoryName ?? "NULL";
-        FileExtension = fileInfo.Extension ?? "UNKNOWN";
-
-        ReadFile();
-
-
-        void ReadFile()
+        public CodeFile(FileInfo fileInfo)
         {
-            using(var reader = new StreamReader(_fileInfo.FullName))
+            FileInfo = fileInfo ?? throw new ArgumentNullException(nameof(fileInfo));
+            FileName = Path.GetFileNameWithoutExtension(fileInfo.Name);
+            FileLocation = fileInfo.DirectoryName ?? "NULL";
+            FileExtension = fileInfo.Extension ?? "UNKNOWN";
+            ReadFile();
+        }
+
+        private void ReadFile()
+        {
+            using(var reader = new StreamReader(FileInfo.FullName))
             {
                 string? line;
                 while((line = reader.ReadLine()) != null)
