@@ -1,49 +1,37 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
-namespace LinesOfCodeCounter;
-public class CodeFile
+namespace LinesOfCodeCounter
 {
-    FileInfo fileInfo;
-    public string fileLocation;
-    public string fileName;
-    public string fileExtension;
-    public string longestLineOfCodeTxtInfo;
-    public long totalLinesOfCode = 0;
-    public long totalCharacterCount = 0;
-    public long longestLineOfCode = 0;
-
-    public CodeFile(FileInfo fileInfo)
+    public class CodeFile
     {
-        this.fileInfo = fileInfo;
+        private readonly FileInfo _fileInfo;
+        public string FileLocation { get; }
+        public string FileName { get; }
+        public string FileExtension { get; }
+        public long TotalLinesOfCode { get; private set; }
+        public long TotalCharacterCount { get; private set; }
+        public long LongestLineOfCode { get; private set; }
 
-        if(fileInfo.Name.Length == 0) return;
-        if(fileInfo.Name.Contains("."))
-            fileName = fileInfo.Name.Substring(0, fileInfo.Name.LastIndexOf("."));
-        else
-            fileName = fileInfo.Name;
-
-        fileLocation = fileInfo.DirectoryName;
-        fileExtension = fileInfo.Extension;
-        ReadFile();
-    }
-
-    void ReadFile()
-    {
-        int longestThisFIle = -1;
-        foreach(var line in File.ReadAllLines(fileInfo.FullName))
+        public CodeFile(FileInfo fileInfo)
         {
-            int currentLineLen = line.Length;
-            if(currentLineLen > longestThisFIle)
-                longestThisFIle = currentLineLen;
+            _fileInfo = fileInfo ?? throw new ArgumentNullException(nameof(fileInfo));
 
-            totalLinesOfCode++;
-            totalCharacterCount += currentLineLen;
+            FileName = Path.GetFileNameWithoutExtension(fileInfo.Name);
+            FileLocation = fileInfo.DirectoryName;
+            FileExtension = fileInfo.Extension;
+
+            ReadFile();
         }
-        longestLineOfCode = longestThisFIle;
+
+        private void ReadFile()
+        {
+            var lines = File.ReadAllLines(_fileInfo.FullName);
+
+            TotalLinesOfCode = lines.Length;
+            TotalCharacterCount = lines.Sum(line => line.Length);
+            LongestLineOfCode = lines.Any() ? lines.Max(line => line.Length) : 0;
+        }
     }
 }

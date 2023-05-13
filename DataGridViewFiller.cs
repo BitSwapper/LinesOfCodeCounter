@@ -17,7 +17,7 @@ public static class DataGridViewFiller
         List<DirectoryInfo> allDirs = directories.Select(d => new DirectoryInfo(d)).ToList();
         allDirs.Add(root);
 
-        ConcurrentBag<CodeFile> concurrentFiles = new ConcurrentBag<CodeFile>();
+        ConcurrentBag<CodeFile> concurrentFiles = new();
 
         Parallel.ForEach(allDirs, dir =>
         {
@@ -27,7 +27,7 @@ public static class DataGridViewFiller
                     continue;
 
                 CodeFile newFile = new CodeFile(file);
-                if(acceptedFileTypes.Contains(newFile.fileExtension))
+                if(acceptedFileTypes.Contains(newFile.FileExtension))
                     concurrentFiles.Add(newFile);
             }
         });
@@ -52,15 +52,15 @@ public static class DataGridViewFiller
         dt.Columns.Add("Extension", typeof(string));
         dt.Columns.Add("Location", typeof(string));
 
-        foreach(var curFile in codeFiles.OrderByDescending(c => c.totalLinesOfCode))
+        foreach(var curFile in codeFiles.OrderByDescending(c => c.TotalLinesOfCode))
         {
             DataRow dr = dt.NewRow();
-            dr[0] = curFile.fileName;
-            dr[1] = curFile.totalLinesOfCode;
-            dr[2] = curFile.totalCharacterCount;
-            dr[3] = curFile.longestLineOfCode;
-            dr[4] = curFile.fileExtension;
-            dr[5] = curFile.fileLocation;
+            dr[0] = curFile.FileName;
+            dr[1] = curFile.TotalLinesOfCode;
+            dr[2] = curFile.TotalCharacterCount;
+            dr[3] = curFile.LongestLineOfCode;
+            dr[4] = curFile.FileExtension;
+            dr[5] = curFile.FileLocation;
             dt.Rows.Add(dr);
         }
         dataGridView.DataSource = dt;
