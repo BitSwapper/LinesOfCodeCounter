@@ -1,11 +1,11 @@
 ﻿namespace LinesOfCodeCounter
 {
-    partial class Form1
+    partial class FormMain
     {
         /// <summary>
         ///  Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        System.ComponentModel.IContainer components = null;
 
         /// <summary>
         ///  Clean up any resources being used.
@@ -26,7 +26,7 @@
         ///  Required method for Designer support - do not modify
         ///  the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
+        void InitializeComponent()
         {
             this.buttonPickFolder = new System.Windows.Forms.Button();
             this.panelMenuBar = new System.Windows.Forms.Panel();
@@ -267,22 +267,22 @@
 
         #endregion
 
-        private Button buttonPickFolder;
-        private Panel panelMenuBar;
-        private Button buttonQuit;
-        private Label label1;
-        private Button buttonMinimize;
-        private Label labelSelectedFolder;
-        private Button buttonDoCaluclation;
-        private Label label2;
-        private Label label3;
-        private DataGridView dataGridView1;
-        private RichTextBox richTextBoxAllowedFiles;
-        private RichTextBox richTextBoxExcludedFiles;
-        private Label labelTotalLines;
-        private Label labelAvgChars;
-        private Label labelAvgLines;
-        private Label labelFilezCounted;
-        private Label labelTotalChars;
+        Button buttonPickFolder;
+        Panel panelMenuBar;
+        Button buttonQuit;
+        Label label1;
+        Button buttonMinimize;
+        Label labelSelectedFolder;
+        Button buttonDoCaluclation;
+        Label label2;
+        Label label3;
+        DataGridView dataGridView1;
+        RichTextBox richTextBoxAllowedFiles;
+        RichTextBox richTextBoxExcludedFiles;
+        Label labelTotalLines;
+        Label labelAvgChars;
+        Label labelAvgLines;
+        Label labelFilezCounted;
+        Label labelTotalChars;
     }
 }

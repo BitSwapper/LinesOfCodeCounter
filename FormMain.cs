@@ -1,49 +1,29 @@
 using System.Reflection;
-using System.Runtime.InteropServices;
 
 namespace LinesOfCodeCounter;
 
-public partial class Form1 : Form
+public partial class FormMain : Form
 {
-    [DllImport("user32.dll")]
-    static extern bool ReleaseCapture();
 
-    [DllImport("user32.dll", CharSet = CharSet.Auto)]
-    public static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, nuint wParam, nint lParam);
 
-    const int WM_NCLBUTTONDOWN = 0xA1;
-    const int HT_CAPTION = 0x2;
-
-    Color lineColorA { get; } = Color.FromArgb(255, 48, 48, 48);
-    Color lineColorB { get; } = Color.FromArgb(255, 64, 64, 64);
-    Color bgColor { get; } = Color.FromArgb(255, 40, 40, 40);
-    Color textColor { get; } = Color.WhiteSmoke;
-
+    string FolderToExamine { get; set; }
     DataGridColorHelper dataGridColorHelper;
-    public string FolderToExamine { get; private set; }
     HashSet<string> acceptedFileTypes = new() {".cs", ".py"};
     HashSet<string> excludedFileTypes = new() {@"\bin", @"\obj", @"\Properties", @"\Debug", @"\Release", @"\LeanTween", @"\ThirdParty"};
     HashSet<CodeFile> codeFiles = new();
 
-    long totalFiles = 0;
-    long totalLines = 0;
-    long totalCharacters = 0;
-    float avgCharsPerFile = 0;
-    float avgLinesPerFile = 0;
-    float avgCharsPerLine = 0;
 
+    public FormMain() => InitializeComponent();
 
-
-    public Form1() => InitializeComponent();
 
     void Form1_Load(object sender, EventArgs e)
     {
-        dataGridColorHelper = new(lineColorA, lineColorB, bgColor, dataGridView1, this.Font);
+        dataGridColorHelper = new(dataGridView1, this.Font);
 
         FillTextBoxDefaults();
 
         EnableDoubleBufferedDataGrid();
-        dataGridView1.ForeColor = textColor;
+        dataGridView1.ForeColor = dataGridColorHelper.TextColor;
     }
 
 
@@ -78,31 +58,38 @@ public partial class Form1 : Form
 
     void buttonDoCaluclation_Click(object sender, EventArgs e)
     {
-        if(string.IsNullOrEmpty(FolderToExamine))
-            return;
+        if(string.IsNullOrEmpty(FolderToExamine)) return;
 
-        UserInputConverter.ConvertUserInputsToRealSettings(ref acceptedFileTypes, ref excludedFileTypes, richTextBoxAllowedFiles, richTextBoxExcludedFiles);
-        DataGridViewFiller.GenerateAndFillDataGridView(ref codeFiles, dataGridView1, FolderToExamine, acceptedFileTypes, excludedFileTypes);
+        UpdateSettings();
+        UpdateUILabels(GetResults());
 
-        if(codeFiles?.Count <= 0)
+
+        void UpdateSettings()
         {
-            MessageBox.Show("No matches found. Assure file extensions you want are inlcuded.");
-            return;
+            UserInputConverter.ConvertUserInputsToRealSettings(ref acceptedFileTypes, ref excludedFileTypes, richTextBoxAllowedFiles, richTextBoxExcludedFiles);
+            DataGridViewFiller.GenerateAndFillDataGridView(ref codeFiles, dataGridView1, FolderToExamine, acceptedFileTypes, excludedFileTypes);
         }
 
-        totalFiles = codeFiles.Count;
-        totalLines = codeFiles.Sum(x => x.TotalLinesOfCode);
-        totalCharacters = codeFiles.Sum(x => x.TotalCharacterCount);
+        CodeAnalysisResult GetResults()
+        {
+            if(codeFiles?.Count <= 0)
+            {
+                MessageBox.Show("No matches found. Assure file extensions you want are inlcuded.");
+                return null;
+            }
 
-        avgLinesPerFile = totalLines / totalFiles;
-        avgCharsPerFile = totalCharacters / totalFiles;
-        avgCharsPerLine = totalCharacters / totalLines;
+            return new CodeAnalysisService().AnalyzeCode(ref codeFiles!, FolderToExamine, acceptedFileTypes, excludedFileTypes);
+        }
 
-        labelFilezCounted.Text = "Files Analyzed: " + totalFiles;
-        labelTotalLines.Text = "Total Lines Of Code: " + totalLines;
-        labelTotalChars.Text = "Total Letters: " + totalCharacters;
-        labelAvgLines.Text = "Avg Lines / File: " + avgLinesPerFile;
-        labelAvgChars.Text = "Avg Letters / File: " + avgCharsPerFile;
+        void UpdateUILabels(CodeAnalysisResult result)
+        {
+            if(result == null) return;
+            labelFilezCounted.Text = "Files Analyzed: " + result.TotalFiles;
+            labelTotalLines.Text = "Total Lines Of Code: " + result.TotalLines;
+            labelTotalChars.Text = "Total Letters: " + result.TotalCharacters;
+            labelAvgLines.Text = "Avg Lines / File: " + result.AverageLinesPerFile;
+            labelAvgChars.Text = "Avg Letters / File: " + result.AverageCharactersPerLine;
+        }
     }
 
 
@@ -110,26 +97,21 @@ public partial class Form1 : Form
     {
         if(e.Button == MouseButtons.Left)
         {
-            ReleaseCapture();
-            SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            FormMainHelpers.ReleaseCapture();
+            FormMainHelpers.SendMessage(Handle, FormMainHelpers.WM_NCLBUTTONDOWN, FormMainHelpers.HT_CAPTION, 0);
         }
     }
 
 
     void buttonQuit_Click(object sender, EventArgs e) => Environment.Exit(0);
 
-
     void buttonMinimize_Click(object sender, EventArgs e) => this.WindowState = FormWindowState.Minimized;
-
 
     void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e) => dataGridColorHelper.DoRowBackColor(e);
 
-
     void dataGridView1_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e) => dataGridColorHelper.DoRowHeaderColor(sender, e);
 
-
     void dataGridView1_CellPainting(object sender, DataGridViewCellPaintingEventArgs e) => dataGridColorHelper.DoSelectAllColor(e);
-
 
     void dataGridView1_Paint(object sender, PaintEventArgs e) => dataGridColorHelper.DoColumnHeaderColor(e);
 }

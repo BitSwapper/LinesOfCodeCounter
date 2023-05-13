@@ -1,8 +1,5 @@
-﻿using System.Data;
-using System.Windows.Forms;
-using System.Linq;
-using System.Collections.Concurrent;
-using System.Threading.Tasks;
+﻿using System.Collections.Concurrent;
+using System.Data;
 
 namespace LinesOfCodeCounter;
 public static class DataGridViewFiller
@@ -10,7 +7,7 @@ public static class DataGridViewFiller
     static DateTime startTime;
     public static void GenerateAndFillDataGridView(ref HashSet<CodeFile> codeFiles, DataGridView dataGridView, string destFolder, HashSet<string> acceptedFileTypes, HashSet<string> excludedFolders)
     {
-        startTime= DateTime.Now;
+        startTime = DateTime.Now;
         string[] directories = System.IO.Directory.GetDirectories(destFolder,"*", System.IO.SearchOption.AllDirectories);
 
         DirectoryInfo root = new DirectoryInfo(destFolder);
