@@ -17,14 +17,8 @@ public partial class FormMain : Form
 
     private void SetupUI()
     {
-        FillTextBoxDefaults();
+        UserInputConverter.FillTextBoxesWithSettings(ref acceptedFileTypes, ref excludedFileTypes, richTextBoxAllowedFiles, richTextBoxExcludedFiles);
         SetupDataGridView();
-
-        void FillTextBoxDefaults()
-        {
-            UserInputConverter.FillTextFromList(acceptedFileTypes, richTextBoxAllowedFiles);
-            UserInputConverter.FillTextFromList(excludedFileTypes, richTextBoxExcludedFiles);
-        }
 
         void SetupDataGridView()
         {
@@ -82,7 +76,7 @@ public partial class FormMain : Form
                 return false;
             }
 
-            result = new CodeAnalysisService().AnalyzeCode(codeFiles!);
+            result = new CodeAnalyzer().AnalyzeCode(codeFiles!);
             return true;
         }
 

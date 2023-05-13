@@ -8,7 +8,13 @@ public static class UserInputConverter
         FillListFromText(ref excludedFileTypes, richTextBoxExcludedFiles);
     }
 
-    public static void FillTextFromList(HashSet<string> list, RichTextBox textBox)
+    public static void FillTextBoxesWithSettings(ref HashSet<string> acceptedFileTypes, ref HashSet<string> excludedFileTypes, RichTextBox richTextBoxAllowedFiles, RichTextBox richTextBoxExcludedFiles)
+    {
+        FillTextBoxFromList(acceptedFileTypes, richTextBoxAllowedFiles);
+        FillTextBoxFromList(excludedFileTypes, richTextBoxExcludedFiles);
+    }
+
+    static void FillTextBoxFromList(HashSet<string> list, RichTextBox textBox)
     {
         textBox.Text = "";
         foreach(var line in list)

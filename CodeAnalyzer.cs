@@ -1,6 +1,6 @@
 ﻿namespace LinesOfCodeCounter;
 
-public class CodeAnalysisService
+public class CodeAnalyzer
 {
     public CodeAnalysisResult AnalyzeCode(HashSet<CodeFile> codeFiles)
     {
