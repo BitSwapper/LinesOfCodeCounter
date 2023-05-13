@@ -19,18 +19,19 @@ public class CodeFile
         FileExtension = fileInfo.Extension ?? "UNKNOWN";
 
         ReadFile();
-    }
 
-    void ReadFile()
-    {
-        using(var reader = new StreamReader(_fileInfo.FullName))
+
+        void ReadFile()
         {
-            string? line;
-            while((line = reader.ReadLine()) != null)
+            using(var reader = new StreamReader(_fileInfo.FullName))
             {
-                TotalLinesOfCode++;
-                TotalCharacterCount += line.Length;
-                LongestLineOfCode = Math.Max(LongestLineOfCode, line.Length);
+                string? line;
+                while((line = reader.ReadLine()) != null)
+                {
+                    TotalLinesOfCode++;
+                    TotalCharacterCount += line.Length;
+                    LongestLineOfCode = Math.Max(LongestLineOfCode, line.Length);
+                }
             }
         }
     }
