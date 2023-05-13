@@ -15,7 +15,7 @@ public static class UserInputConverter
                 textBox.Text += line + Environment.NewLine;
     }
 
-    public static void FillListFromText(ref HashSet<string> list, RichTextBox textBox)
+    static void FillListFromText(ref HashSet<string> list, RichTextBox textBox)
     {
         list = new();
 

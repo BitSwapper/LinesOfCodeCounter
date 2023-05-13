@@ -23,7 +23,7 @@ public partial class Form1 : Form
     public string FolderToExamine { get; private set; }
     HashSet<string> acceptedFileTypes = new() {".cs", ".py"};
     HashSet<string> excludedFileTypes = new() {@"\bin", @"\obj", @"\Properties", @"\Debug", @"\Release", @"\LeanTween", @"\ThirdParty"};
-    List<CodeFile> codeFiles = new();
+    HashSet<CodeFile> codeFiles = new();
 
     long totalFiles = 0;
     long totalLines = 0;

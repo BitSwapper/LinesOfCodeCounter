@@ -8,7 +8,7 @@ namespace LinesOfCodeCounter;
 public static class DataGridViewFiller
 {
     static DateTime startTime;
-    public static void GenerateAndFillDataGridView(ref List<CodeFile> codeFiles, DataGridView dataGridView, string destFolder, HashSet<string> acceptedFileTypes, HashSet<string> excludedFolders)
+    public static void GenerateAndFillDataGridView(ref HashSet<CodeFile> codeFiles, DataGridView dataGridView, string destFolder, HashSet<string> acceptedFileTypes, HashSet<string> excludedFolders)
     {
         startTime= DateTime.Now;
         string[] directories = System.IO.Directory.GetDirectories(destFolder,"*", System.IO.SearchOption.AllDirectories);
@@ -32,7 +32,7 @@ public static class DataGridViewFiller
             }
         });
 
-        codeFiles = concurrentFiles.ToList();
+        codeFiles = concurrentFiles.ToHashSet();
 
         FillDataGridView(codeFiles, dataGridView);
         dataGridView.Columns[0].DefaultCellStyle.BackColor = Color.DarkSlateGray;
@@ -42,7 +42,7 @@ public static class DataGridViewFiller
         MessageBox.Show((DateTime.Now - startTime).TotalSeconds.ToString());
     }
 
-    static void FillDataGridView(List<CodeFile> codeFiles, DataGridView dataGridView)
+    static void FillDataGridView(HashSet<CodeFile> codeFiles, DataGridView dataGridView)
     {
         DataTable dt = new DataTable();
         dt.Columns.Add("File name", typeof(string));
