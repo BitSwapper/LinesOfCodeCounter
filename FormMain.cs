@@ -15,7 +15,7 @@ public partial class FormMain : Form
 
     void Form1_Load(object sender, EventArgs e) => SetupUI();
 
-    private void SetupUI()
+    void SetupUI()
     {
         UserInputConverter.FillTextBoxesWithSettings(acceptedFileTypes, excludedFileTypes, richTextBoxAllowedFiles, richTextBoxExcludedFiles);
         SetupDataGridView();

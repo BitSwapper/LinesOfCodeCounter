@@ -19,7 +19,7 @@
             ReadFile();
         }
 
-        private void ReadFile()
+        void ReadFile()
         {
             using(var reader = new StreamReader(FileInfo.FullName))
             {

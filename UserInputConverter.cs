@@ -14,7 +14,7 @@ public static class UserInputConverter
         FillTextBoxFromHashSet(excludedFileTypes, richTextBoxExcludedFiles);
     }
 
-    private static void FillTextBoxFromHashSet(HashSet<string> hashSet, RichTextBox textBox) => textBox.Text = string.Join(Environment.NewLine, hashSet.Where(line => !string.IsNullOrEmpty(line)));
+    static void FillTextBoxFromHashSet(HashSet<string> hashSet, RichTextBox textBox) => textBox.Text = string.Join(Environment.NewLine, hashSet.Where(line => !string.IsNullOrEmpty(line)));
 
-    private static HashSet<string> FillHashSetFromText(RichTextBox textBox) => new HashSet<string>(textBox.Lines.Where(line => !string.IsNullOrEmpty(line)));
+    static HashSet<string> FillHashSetFromText(RichTextBox textBox) => new HashSet<string>(textBox.Lines.Where(line => !string.IsNullOrEmpty(line)));
 }
