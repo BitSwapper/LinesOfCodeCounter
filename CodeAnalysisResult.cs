@@ -1,6 +1,6 @@
 ﻿namespace LinesOfCodeCounter;
 
-public class CodeAnalysisResult
+public record CodeAnalysisResult
 {
     public int TotalFiles { get; set; }
     public long TotalLines { get; set; }
