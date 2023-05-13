@@ -18,7 +18,6 @@ public static class UserInputConverter
     static void FillListFromText(ref HashSet<string> list, RichTextBox textBox)
     {
         list = new();
-
         foreach(var line in textBox.Lines)
             if(line != string.Empty)
                 list.Add(line);

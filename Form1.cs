@@ -84,6 +84,12 @@ public partial class Form1 : Form
         UserInputConverter.ConvertUserInputsToRealSettings(ref acceptedFileTypes, ref excludedFileTypes, richTextBoxAllowedFiles, richTextBoxExcludedFiles);
         DataGridViewFiller.GenerateAndFillDataGridView(ref codeFiles, dataGridView1, FolderToExamine, acceptedFileTypes, excludedFileTypes);
 
+        if(codeFiles?.Count <= 0)
+        {
+            MessageBox.Show("No matches found. Assure file extensions you want are inlcuded.");
+            return;
+        }
+
         totalFiles = codeFiles.Count;
         totalLines = codeFiles.Sum(x => x.TotalLinesOfCode);
         totalCharacters = codeFiles.Sum(x => x.TotalCharacterCount);
