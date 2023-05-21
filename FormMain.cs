@@ -76,7 +76,7 @@ public partial class FormMain : Form
                 return false;
             }
 
-            result = new CodeAnalyzer().AnalyzeCode(codeFiles!);
+            result = new CodeAnalysisResult(codeFiles!);
             return true;
         }
 
