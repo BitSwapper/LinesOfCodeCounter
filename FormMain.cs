@@ -6,8 +6,8 @@ public partial class FormMain : Form
 {
     string FolderToExamine { get; set; }
     DataGridColorHelper dataGridColorHelper;
-    HashSet<string> acceptedFileTypes = new() {".cs", ".py"};
-    HashSet<string> excludedFileTypes = new() {@"\bin", @"\obj", @"\Properties", @"\Debug", @"\Release", @"\LeanTween", @"\ThirdParty"};
+    HashSet<string> acceptedFileTypes = new() {".cs", ".py", ".shader"};
+    HashSet<string> excludedFileTypes = new() {@"\bin", @"\obj", @"\Properties", @"\Debug", @"\Release", @"\LeanTween", @"\ThirdParty", @"\TextMesh Pro"};
     HashSet<CodeFile> codeFiles = new();
 
 
@@ -87,7 +87,7 @@ public partial class FormMain : Form
             labelTotalLines.Text = "Total Lines Of Code: " + result.TotalLines;
             labelTotalChars.Text = "Total Characters: " + result.TotalCharacters;
             labelAvgLines.Text = "Avg Lines / File: " + result.AverageLinesPerFile;
-            labelAvgChars.Text = "Avg Characters / File: " + result.AverageCharactersPerLine;
+            labelAvgChars.Text = "Avg Characters / Line: " + result.AverageCharactersPerLine;
         }
     }
 
