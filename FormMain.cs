@@ -7,7 +7,7 @@ public partial class FormMain : Form
     string FolderToExamine { get; set; }
     DataGridColorHelper dataGridColorHelper;
     HashSet<string> acceptedFileTypes = new() {".cs", ".py", ".shader"};
-    HashSet<string> excludedFileTypes = new() {@"\bin", @"\obj", @"\Properties", @"\Debug", @"\Release", @"\LeanTween", @"\ThirdParty", @"\TextMesh Pro"};
+    HashSet<string> excludedFileTypes = new() {@"\bin", @"\obj", @"\Properties", @"\Debug", @"\Release", @"\LeanTween", @"\ThirdParty", @"\Third Party", @"\TextMesh Pro" };
     HashSet<CodeFile> codeFiles = new();
 
 
