@@ -28,240 +28,315 @@
         /// </summary>
         void InitializeComponent()
         {
-            this.buttonPickFolder = new System.Windows.Forms.Button();
-            this.panelMenuBar = new System.Windows.Forms.Panel();
-            this.buttonMinimize = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.buttonQuit = new System.Windows.Forms.Button();
-            this.labelSelectedFolder = new System.Windows.Forms.Label();
-            this.buttonDoCaluclation = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.richTextBoxAllowedFiles = new System.Windows.Forms.RichTextBox();
-            this.richTextBoxExcludedFiles = new System.Windows.Forms.RichTextBox();
-            this.labelTotalLines = new System.Windows.Forms.Label();
-            this.labelAvgChars = new System.Windows.Forms.Label();
-            this.labelAvgLines = new System.Windows.Forms.Label();
-            this.labelFilezCounted = new System.Windows.Forms.Label();
-            this.labelTotalChars = new System.Windows.Forms.Label();
-            this.panelMenuBar.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            this.SuspendLayout();
+            buttonPickFolder = new Button();
+            panelMenuBar = new Panel();
+            buttonMinimize = new Button();
+            label1 = new Label();
+            buttonQuit = new Button();
+            labelSelectedFolder = new Label();
+            buttonDoCaluclation = new Button();
+            label2 = new Label();
+            label3 = new Label();
+            dataGridView1 = new DataGridView();
+            richTextBoxAllowedFiles = new RichTextBox();
+            richTextBoxExcludedFiles = new RichTextBox();
+            labelTotalLines = new Label();
+            labelAvgChars = new Label();
+            labelAvgLines = new Label();
+            labelFilezCounted = new Label();
+            labelTotalChars = new Label();
+            labelTimeTaken = new Label();
+            label4 = new Label();
+            label5 = new Label();
+            label6 = new Label();
+            label7 = new Label();
+            label8 = new Label();
+            panelMenuBar.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            SuspendLayout();
             // 
             // buttonPickFolder
             // 
-            this.buttonPickFolder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonPickFolder.ForeColor = System.Drawing.Color.White;
-            this.buttonPickFolder.Location = new System.Drawing.Point(2, 112);
-            this.buttonPickFolder.Name = "buttonPickFolder";
-            this.buttonPickFolder.Size = new System.Drawing.Size(110, 23);
-            this.buttonPickFolder.TabIndex = 0;
-            this.buttonPickFolder.Text = "Choose Folder";
-            this.buttonPickFolder.UseVisualStyleBackColor = true;
-            this.buttonPickFolder.Click += new System.EventHandler(this.buttonSelectFolder_Click);
+            buttonPickFolder.FlatStyle = FlatStyle.Flat;
+            buttonPickFolder.ForeColor = Color.White;
+            buttonPickFolder.Location = new Point(2, 112);
+            buttonPickFolder.Name = "buttonPickFolder";
+            buttonPickFolder.Size = new Size(110, 23);
+            buttonPickFolder.TabIndex = 0;
+            buttonPickFolder.Text = "Choose Folder";
+            buttonPickFolder.UseVisualStyleBackColor = true;
+            buttonPickFolder.Click += buttonSelectFolder_Click;
             // 
             // panelMenuBar
             // 
-            this.panelMenuBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
-            this.panelMenuBar.Controls.Add(this.buttonMinimize);
-            this.panelMenuBar.Controls.Add(this.label1);
-            this.panelMenuBar.Controls.Add(this.buttonQuit);
-            this.panelMenuBar.Location = new System.Drawing.Point(0, 0);
-            this.panelMenuBar.Name = "panelMenuBar";
-            this.panelMenuBar.Size = new System.Drawing.Size(1024, 24);
-            this.panelMenuBar.TabIndex = 3;
-            this.panelMenuBar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelMenuBar_MouseDown);
+            panelMenuBar.BackColor = Color.FromArgb(24, 24, 24);
+            panelMenuBar.Controls.Add(buttonMinimize);
+            panelMenuBar.Controls.Add(label1);
+            panelMenuBar.Controls.Add(buttonQuit);
+            panelMenuBar.Location = new Point(0, 0);
+            panelMenuBar.Name = "panelMenuBar";
+            panelMenuBar.Size = new Size(1120, 24);
+            panelMenuBar.TabIndex = 3;
+            panelMenuBar.MouseDown += panelMenuBar_MouseDown;
             // 
             // buttonMinimize
             // 
-            this.buttonMinimize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonMinimize.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonMinimize.ForeColor = System.Drawing.Color.White;
-            this.buttonMinimize.Location = new System.Drawing.Point(978, 1);
-            this.buttonMinimize.Name = "buttonMinimize";
-            this.buttonMinimize.Size = new System.Drawing.Size(22, 22);
-            this.buttonMinimize.TabIndex = 4;
-            this.buttonMinimize.Text = "-";
-            this.buttonMinimize.UseVisualStyleBackColor = true;
-            this.buttonMinimize.Click += new System.EventHandler(this.buttonMinimize_Click);
+            buttonMinimize.FlatStyle = FlatStyle.Flat;
+            buttonMinimize.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            buttonMinimize.ForeColor = Color.White;
+            buttonMinimize.Location = new Point(1071, 0);
+            buttonMinimize.Name = "buttonMinimize";
+            buttonMinimize.Size = new Size(22, 22);
+            buttonMinimize.TabIndex = 4;
+            buttonMinimize.Text = "-";
+            buttonMinimize.UseVisualStyleBackColor = true;
+            buttonMinimize.Click += buttonMinimize_Click;
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(251)))), ((int)(((byte)(146)))), ((int)(((byte)(40)))));
-            this.label1.Location = new System.Drawing.Point(2, 4);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(162, 15);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Code Stats | Written by Hex";
+            label1.AutoSize = true;
+            label1.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label1.ForeColor = Color.FromArgb(251, 146, 40);
+            label1.Location = new Point(2, 2);
+            label1.Name = "label1";
+            label1.Size = new Size(246, 19);
+            label1.TabIndex = 3;
+            label1.Text = "Code Stats | Github.com/BitSwapper";
             // 
             // buttonQuit
             // 
-            this.buttonQuit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonQuit.ForeColor = System.Drawing.Color.White;
-            this.buttonQuit.Location = new System.Drawing.Point(1002, 1);
-            this.buttonQuit.Name = "buttonQuit";
-            this.buttonQuit.Size = new System.Drawing.Size(22, 22);
-            this.buttonQuit.TabIndex = 2;
-            this.buttonQuit.Text = "X";
-            this.buttonQuit.UseVisualStyleBackColor = true;
-            this.buttonQuit.Click += new System.EventHandler(this.buttonQuit_Click);
+            buttonQuit.FlatStyle = FlatStyle.Flat;
+            buttonQuit.ForeColor = Color.White;
+            buttonQuit.Location = new Point(1095, 0);
+            buttonQuit.Name = "buttonQuit";
+            buttonQuit.Size = new Size(22, 22);
+            buttonQuit.TabIndex = 2;
+            buttonQuit.Text = "X";
+            buttonQuit.UseVisualStyleBackColor = true;
+            buttonQuit.Click += buttonQuit_Click;
             // 
             // labelSelectedFolder
             // 
-            this.labelSelectedFolder.AutoSize = true;
-            this.labelSelectedFolder.ForeColor = System.Drawing.Color.White;
-            this.labelSelectedFolder.Location = new System.Drawing.Point(2, 27);
-            this.labelSelectedFolder.Name = "labelSelectedFolder";
-            this.labelSelectedFolder.Size = new System.Drawing.Size(124, 15);
-            this.labelSelectedFolder.TabIndex = 4;
-            this.labelSelectedFolder.Text = "Analyzing Folder:  null";
+            labelSelectedFolder.AutoSize = true;
+            labelSelectedFolder.ForeColor = Color.White;
+            labelSelectedFolder.Location = new Point(2, 27);
+            labelSelectedFolder.Name = "labelSelectedFolder";
+            labelSelectedFolder.Size = new Size(124, 15);
+            labelSelectedFolder.TabIndex = 4;
+            labelSelectedFolder.Text = "Analyzing Folder:  null";
             // 
             // buttonDoCaluclation
             // 
-            this.buttonDoCaluclation.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonDoCaluclation.ForeColor = System.Drawing.Color.White;
-            this.buttonDoCaluclation.Location = new System.Drawing.Point(330, 113);
-            this.buttonDoCaluclation.Name = "buttonDoCaluclation";
-            this.buttonDoCaluclation.Size = new System.Drawing.Size(110, 23);
-            this.buttonDoCaluclation.TabIndex = 5;
-            this.buttonDoCaluclation.Text = "Fetch Data";
-            this.buttonDoCaluclation.UseVisualStyleBackColor = true;
-            this.buttonDoCaluclation.Click += new System.EventHandler(this.buttonDoCaluclation_Click);
+            buttonDoCaluclation.FlatStyle = FlatStyle.Flat;
+            buttonDoCaluclation.ForeColor = Color.White;
+            buttonDoCaluclation.Location = new Point(451, 113);
+            buttonDoCaluclation.Name = "buttonDoCaluclation";
+            buttonDoCaluclation.Size = new Size(110, 23);
+            buttonDoCaluclation.TabIndex = 5;
+            buttonDoCaluclation.Text = "Fetch Data";
+            buttonDoCaluclation.UseVisualStyleBackColor = true;
+            buttonDoCaluclation.Click += buttonDoCaluclation_Click;
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(118, 53);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(103, 15);
-            this.label2.TabIndex = 7;
-            this.label2.Text = "Allowed File Types";
+            label2.AutoSize = true;
+            label2.ForeColor = Color.White;
+            label2.Location = new Point(118, 53);
+            label2.Name = "label2";
+            label2.Size = new Size(103, 15);
+            label2.TabIndex = 7;
+            label2.Text = "Allowed File Types";
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(224, 53);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(96, 15);
-            this.label3.TabIndex = 9;
-            this.label3.Text = "Excluded Folders";
+            label3.AutoSize = true;
+            label3.ForeColor = Color.White;
+            label3.Location = new Point(245, 53);
+            label3.Name = "label3";
+            label3.Size = new Size(96, 15);
+            label3.TabIndex = 9;
+            label3.Text = "Excluded Folders";
             // 
             // dataGridView1
             // 
-            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dataGridView1.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.dataGridView1.Location = new System.Drawing.Point(0, 141);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowTemplate.Height = 25;
-            this.dataGridView1.Size = new System.Drawing.Size(1024, 627);
-            this.dataGridView1.TabIndex = 10;
-            this.dataGridView1.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView1_CellFormatting);
-            this.dataGridView1.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dataGridView1_CellPainting);
-            this.dataGridView1.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView1_RowPostPaint);
-            this.dataGridView1.Paint += new System.Windows.Forms.PaintEventHandler(this.dataGridView1_Paint);
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            dataGridView1.BackgroundColor = Color.FromArgb(32, 32, 32);
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Dock = DockStyle.Bottom;
+            dataGridView1.Location = new Point(0, 141);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.RowTemplate.Height = 25;
+            dataGridView1.Size = new Size(1120, 627);
+            dataGridView1.TabIndex = 10;
+            dataGridView1.CellFormatting += dataGridView1_CellFormatting;
+            dataGridView1.CellPainting += dataGridView1_CellPainting;
+            dataGridView1.RowPostPaint += dataGridView1_RowPostPaint;
+            dataGridView1.Paint += dataGridView1_Paint;
             // 
             // richTextBoxAllowedFiles
             // 
-            this.richTextBoxAllowedFiles.Location = new System.Drawing.Point(118, 71);
-            this.richTextBoxAllowedFiles.Name = "richTextBoxAllowedFiles";
-            this.richTextBoxAllowedFiles.Size = new System.Drawing.Size(100, 64);
-            this.richTextBoxAllowedFiles.TabIndex = 11;
-            this.richTextBoxAllowedFiles.Text = "";
+            richTextBoxAllowedFiles.Location = new Point(121, 71);
+            richTextBoxAllowedFiles.Name = "richTextBoxAllowedFiles";
+            richTextBoxAllowedFiles.Size = new Size(118, 64);
+            richTextBoxAllowedFiles.TabIndex = 11;
+            richTextBoxAllowedFiles.Text = "";
             // 
             // richTextBoxExcludedFiles
             // 
-            this.richTextBoxExcludedFiles.Location = new System.Drawing.Point(224, 72);
-            this.richTextBoxExcludedFiles.Name = "richTextBoxExcludedFiles";
-            this.richTextBoxExcludedFiles.Size = new System.Drawing.Size(100, 64);
-            this.richTextBoxExcludedFiles.TabIndex = 13;
-            this.richTextBoxExcludedFiles.Text = "";
+            richTextBoxExcludedFiles.Location = new Point(245, 71);
+            richTextBoxExcludedFiles.Name = "richTextBoxExcludedFiles";
+            richTextBoxExcludedFiles.Size = new Size(200, 64);
+            richTextBoxExcludedFiles.TabIndex = 13;
+            richTextBoxExcludedFiles.Text = "";
             // 
             // labelTotalLines
             // 
-            this.labelTotalLines.AutoSize = true;
-            this.labelTotalLines.ForeColor = System.Drawing.Color.White;
-            this.labelTotalLines.Location = new System.Drawing.Point(567, 76);
-            this.labelTotalLines.Name = "labelTotalLines";
-            this.labelTotalLines.Size = new System.Drawing.Size(115, 15);
-            this.labelTotalLines.TabIndex = 14;
-            this.labelTotalLines.Text = "Total Lines Of Code: ";
+            labelTotalLines.AutoSize = true;
+            labelTotalLines.ForeColor = Color.Gold;
+            labelTotalLines.Location = new Point(687, 76);
+            labelTotalLines.Name = "labelTotalLines";
+            labelTotalLines.Size = new Size(34, 15);
+            labelTotalLines.TabIndex = 14;
+            labelTotalLines.Text = "Texty";
             // 
             // labelAvgChars
             // 
-            this.labelAvgChars.AutoSize = true;
-            this.labelAvgChars.ForeColor = System.Drawing.Color.White;
-            this.labelAvgChars.Location = new System.Drawing.Point(567, 121);
-            this.labelAvgChars.Name = "labelAvgChars";
-            this.labelAvgChars.Size = new System.Drawing.Size(90, 15);
-            this.labelAvgChars.TabIndex = 15;
-            this.labelAvgChars.Text = "Avg Chars / File";
+            labelAvgChars.AutoSize = true;
+            labelAvgChars.ForeColor = Color.Gold;
+            labelAvgChars.Location = new Point(687, 121);
+            labelAvgChars.Name = "labelAvgChars";
+            labelAvgChars.Size = new Size(34, 15);
+            labelAvgChars.TabIndex = 15;
+            labelAvgChars.Text = "Texty";
             // 
             // labelAvgLines
             // 
-            this.labelAvgLines.AutoSize = true;
-            this.labelAvgLines.ForeColor = System.Drawing.Color.White;
-            this.labelAvgLines.Location = new System.Drawing.Point(567, 106);
-            this.labelAvgLines.Name = "labelAvgLines";
-            this.labelAvgLines.Size = new System.Drawing.Size(93, 15);
-            this.labelAvgLines.TabIndex = 16;
-            this.labelAvgLines.Text = "Avg Lines / File: ";
+            labelAvgLines.AutoSize = true;
+            labelAvgLines.ForeColor = Color.Gold;
+            labelAvgLines.Location = new Point(687, 106);
+            labelAvgLines.Name = "labelAvgLines";
+            labelAvgLines.Size = new Size(34, 15);
+            labelAvgLines.TabIndex = 16;
+            labelAvgLines.Text = "Texty";
             // 
             // labelFilezCounted
             // 
-            this.labelFilezCounted.AutoSize = true;
-            this.labelFilezCounted.ForeColor = System.Drawing.Color.White;
-            this.labelFilezCounted.Location = new System.Drawing.Point(567, 61);
-            this.labelFilezCounted.Name = "labelFilezCounted";
-            this.labelFilezCounted.Size = new System.Drawing.Size(87, 15);
-            this.labelFilezCounted.TabIndex = 17;
-            this.labelFilezCounted.Text = "Files Analyzed: ";
+            labelFilezCounted.AutoSize = true;
+            labelFilezCounted.ForeColor = Color.Gold;
+            labelFilezCounted.Location = new Point(687, 61);
+            labelFilezCounted.Name = "labelFilezCounted";
+            labelFilezCounted.Size = new Size(34, 15);
+            labelFilezCounted.TabIndex = 17;
+            labelFilezCounted.Text = "Texty";
             // 
             // labelTotalChars
             // 
-            this.labelTotalChars.AutoSize = true;
-            this.labelTotalChars.ForeColor = System.Drawing.Color.White;
-            this.labelTotalChars.Location = new System.Drawing.Point(567, 91);
-            this.labelTotalChars.Name = "labelTotalChars";
-            this.labelTotalChars.Size = new System.Drawing.Size(76, 15);
-            this.labelTotalChars.TabIndex = 18;
-            this.labelTotalChars.Text = "Total Letters: ";
+            labelTotalChars.AutoSize = true;
+            labelTotalChars.ForeColor = Color.Gold;
+            labelTotalChars.Location = new Point(687, 91);
+            labelTotalChars.Name = "labelTotalChars";
+            labelTotalChars.Size = new Size(34, 15);
+            labelTotalChars.TabIndex = 18;
+            labelTotalChars.Text = "Texty";
             // 
-            // Form1
+            // labelTimeTaken
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
-            this.ClientSize = new System.Drawing.Size(1024, 768);
-            this.Controls.Add(this.labelTotalChars);
-            this.Controls.Add(this.labelFilezCounted);
-            this.Controls.Add(this.labelAvgLines);
-            this.Controls.Add(this.labelAvgChars);
-            this.Controls.Add(this.labelTotalLines);
-            this.Controls.Add(this.richTextBoxExcludedFiles);
-            this.Controls.Add(this.richTextBoxAllowedFiles);
-            this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.buttonDoCaluclation);
-            this.Controls.Add(this.labelSelectedFolder);
-            this.Controls.Add(this.panelMenuBar);
-            this.Controls.Add(this.buttonPickFolder);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "Form1";
-            this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
-            this.panelMenuBar.ResumeLayout(false);
-            this.panelMenuBar.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            labelTimeTaken.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            labelTimeTaken.AutoSize = true;
+            labelTimeTaken.ForeColor = Color.White;
+            labelTimeTaken.Location = new Point(687, 27);
+            labelTimeTaken.Name = "labelTimeTaken";
+            labelTimeTaken.RightToLeft = RightToLeft.No;
+            labelTimeTaken.Size = new Size(0, 15);
+            labelTimeTaken.TabIndex = 19;
+            labelTimeTaken.TextAlign = ContentAlignment.TopRight;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.ForeColor = Color.White;
+            label4.Location = new Point(567, 91);
+            label4.Name = "label4";
+            label4.Size = new Size(97, 15);
+            label4.TabIndex = 23;
+            label4.Text = "Total Characters :";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.ForeColor = Color.White;
+            label5.Location = new Point(567, 106);
+            label5.Name = "label5";
+            label5.Size = new Size(93, 15);
+            label5.TabIndex = 22;
+            label5.Text = "Avg Lines / File: ";
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.ForeColor = Color.White;
+            label6.Location = new Point(567, 121);
+            label6.Name = "label6";
+            label6.Size = new Size(119, 15);
+            label6.TabIndex = 21;
+            label6.Text = "Avg Characters / File:";
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.ForeColor = Color.White;
+            label7.Location = new Point(567, 76);
+            label7.Name = "label7";
+            label7.Size = new Size(115, 15);
+            label7.TabIndex = 20;
+            label7.Text = "Total Lines Of Code: ";
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.ForeColor = Color.White;
+            label8.Location = new Point(567, 61);
+            label8.Name = "label8";
+            label8.Size = new Size(87, 15);
+            label8.TabIndex = 24;
+            label8.Text = "Files Analyzed: ";
+            // 
+            // FormMain
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.FromArgb(36, 36, 36);
+            ClientSize = new Size(1120, 768);
+            Controls.Add(label8);
+            Controls.Add(label4);
+            Controls.Add(label5);
+            Controls.Add(label6);
+            Controls.Add(label7);
+            Controls.Add(labelTimeTaken);
+            Controls.Add(labelTotalChars);
+            Controls.Add(labelFilezCounted);
+            Controls.Add(labelAvgLines);
+            Controls.Add(labelAvgChars);
+            Controls.Add(labelTotalLines);
+            Controls.Add(richTextBoxExcludedFiles);
+            Controls.Add(richTextBoxAllowedFiles);
+            Controls.Add(dataGridView1);
+            Controls.Add(label3);
+            Controls.Add(label2);
+            Controls.Add(buttonDoCaluclation);
+            Controls.Add(labelSelectedFolder);
+            Controls.Add(panelMenuBar);
+            Controls.Add(buttonPickFolder);
+            FormBorderStyle = FormBorderStyle.None;
+            Name = "FormMain";
+            SizeGripStyle = SizeGripStyle.Show;
+            Text = "Form1";
+            Load += Form1_Load;
+            panelMenuBar.ResumeLayout(false);
+            panelMenuBar.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
 
         }
 
@@ -284,5 +359,11 @@
         Label labelAvgLines;
         Label labelFilezCounted;
         Label labelTotalChars;
+        private Label labelTimeTaken;
+        private Label label4;
+        private Label label5;
+        private Label label6;
+        private Label label7;
+        private Label label8;
     }
 }

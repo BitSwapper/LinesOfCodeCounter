@@ -6,8 +6,8 @@ public partial class FormMain : Form
 {
     string FolderToExamine { get; set; }
     DataGridColorHelper dataGridColorHelper;
-    HashSet<string> acceptedFileTypes = new() {".cs", ".py", ".shader"};
-    HashSet<string> excludedFileTypes = new() {@"\bin", @"\obj", @"\Properties", @"\Debug", @"\Release", @"\LeanTween", @"\ThirdParty", @"\Third Party", @"\TextMesh Pro" };
+    HashSet<string> acceptedFileTypes = new() {".cs", ".py", ".shader", ".cpp", ".h"};
+    HashSet<string> excludedFilePaths = new() {@"\bin", @"\obj", @"\Properties", @"\Debug", @"\Release", @"\Plugins", @"\LeanTween", @"\ThirdParty", @"\Third Party", @"\TextMesh Pro" };
     HashSet<CodeFile> codeFiles = new();
 
 
@@ -17,7 +17,8 @@ public partial class FormMain : Form
 
     void SetupUI()
     {
-        UserInputConverter.FillTextBoxesWithSettings(acceptedFileTypes, excludedFileTypes, richTextBoxAllowedFiles, richTextBoxExcludedFiles);
+        labelFilezCounted.Text = labelTotalLines.Text = labelTotalChars.Text = labelAvgLines.Text = labelAvgChars.Text = string.Empty;
+        UserInputConverter.FillTextBoxesWithSettings(acceptedFileTypes, excludedFilePaths, richTextBoxAllowedFiles, richTextBoxExcludedFiles);
         SetupDataGridView();
 
         void SetupDataGridView()
@@ -26,13 +27,7 @@ public partial class FormMain : Form
             dataGridColorHelper = new(dataGridView1, this.Font);
             dataGridView1.ForeColor = dataGridColorHelper.TextColor;
 
-
-            void EnableDoubleBufferedDataGrid() => typeof(DataGridView).InvokeMember(
-            "DoubleBuffered",
-            BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty,
-            null,
-            dataGridView1,
-            new object[] { true });
+            void EnableDoubleBufferedDataGrid() => typeof(DataGridView).InvokeMember("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty, null, dataGridView1, new object[] { true });
         }
     }
 
@@ -42,9 +37,11 @@ public partial class FormMain : Form
         using(var folderBrowser = new FolderBrowserDialog())
         {
             DialogResult result = folderBrowser.ShowDialog();
-
             if(result == DialogResult.OK && !string.IsNullOrWhiteSpace(folderBrowser.SelectedPath))
+            {
                 FolderToExamine = folderBrowser.SelectedPath;
+                labelTimeTaken.Text = "";
+            }
         }
 
         labelSelectedFolder.Text = "Examining Folder: " + FolderToExamine;
@@ -63,8 +60,9 @@ public partial class FormMain : Form
 
         void UpdateSettings()
         {
-            UserInputConverter.ConvertUserInputsToRealSettings(ref acceptedFileTypes, ref excludedFileTypes, richTextBoxAllowedFiles, richTextBoxExcludedFiles);
-            DataGridViewFiller.GenerateAndFillDataGridView(ref codeFiles, dataGridView1, FolderToExamine, acceptedFileTypes, excludedFileTypes);
+            UserInputConverter.ConvertUserInputsToRealSettings(ref acceptedFileTypes, ref excludedFilePaths, richTextBoxAllowedFiles, richTextBoxExcludedFiles);
+            var timeTaken = DataGridViewFiller.GenerateAndFillDataGridView(ref codeFiles, dataGridView1, FolderToExamine, acceptedFileTypes, excludedFilePaths);
+            labelTimeTaken.Text = $"Analysis finished in {timeTaken.TotalSeconds.ToString("F2")} seconds.";
         }
 
         bool TryGetResults(out CodeAnalysisResult? result)
@@ -83,11 +81,11 @@ public partial class FormMain : Form
         void UpdateUILabels(CodeAnalysisResult result)
         {
             if(result == null) return;
-            labelFilezCounted.Text = "Files Analyzed: " + result.TotalFiles;
-            labelTotalLines.Text = "Total Lines Of Code: " + result.TotalLines;
-            labelTotalChars.Text = "Total Characters: " + result.TotalCharacters;
-            labelAvgLines.Text = "Avg Lines / File: " + result.AverageLinesPerFile;
-            labelAvgChars.Text = "Avg Characters / Line: " + result.AverageCharactersPerLine;
+            labelFilezCounted.Text = result.TotalFiles.ToString("#,0");
+            labelTotalLines.Text = result.TotalLines.ToString("#,0");
+            labelTotalChars.Text = result.TotalCharacters.ToString("#,0");
+            labelAvgLines.Text = result.AverageLinesPerFile.ToString("#,0.##");
+            labelAvgChars.Text = result.AverageCharactersPerLine.ToString("#,0.##");
         }
     }
 
@@ -96,8 +94,8 @@ public partial class FormMain : Form
     {
         if(e.Button == MouseButtons.Left)
         {
-            NativeImports.ReleaseCapture();
-            NativeImports.SendMessage(Handle, NativeImports.WM_NCLBUTTONDOWN, NativeImports.HT_CAPTION, 0);
+            Native.ReleaseCapture();
+            Native.SendMessage(Handle, Native.WM_NCLBUTTONDOWN, Native.HT_CAPTION, 0);
         }
     }
 

@@ -1,17 +1,18 @@
 ﻿namespace LinesOfCodeCounter;
+
 internal class DataGridColorHelper
 {
-    public Color LineColorA => Color.FromArgb(255, 48, 48, 48);
-    public Color LineColorB => Color.FromArgb(255, 64, 64, 64);
-    public Color BgColor => Color.FromArgb(255, 40, 40, 40);
-    public Color TextColor => Color.WhiteSmoke;
-
     Font font;
     DataGridView dataGridView;
     StringFormat centerFormat;
     SolidBrush brushBgColor;
     SolidBrush brushLineColorA;
     SolidBrush brushLineColorB;
+
+    public Color LineColorA => Color.FromArgb(255, 48, 48, 48);
+    public Color LineColorB => Color.FromArgb(255, 64, 64, 64);
+    public Color BgColor => Color.FromArgb(255, 40, 40, 40);
+    public Color TextColor => Color.WhiteSmoke;
 
 
     public DataGridColorHelper(DataGridView dataGridView, Font font)
@@ -30,7 +31,6 @@ internal class DataGridColorHelper
         brushLineColorB = new SolidBrush(LineColorB);
     }
 
-
     public void DoColumnHeaderColor(PaintEventArgs e)
     {
         for(int i = 0; i < dataGridView.Columns.Count; i++)
@@ -43,7 +43,6 @@ internal class DataGridColorHelper
         }
     }
 
-
     public void DoSelectAllColor(DataGridViewCellPaintingEventArgs e)
     {
         if(e.RowIndex == -1 && e.ColumnIndex == -1)
@@ -55,11 +54,9 @@ internal class DataGridColorHelper
             e.Handled = true;
 
             RectangleF textRect = new RectangleF(e.CellBounds.X, e.CellBounds.Y, e.CellBounds.Width, e.CellBounds.Height);
-
             e.Graphics.DrawString("Select All", e.CellStyle.Font, Brushes.DimGray, textRect, centerFormat);
         }
     }
-
 
     public void DoRowHeaderColor(object sender, DataGridViewRowPostPaintEventArgs e)
     {
@@ -72,9 +69,9 @@ internal class DataGridColorHelper
             e.Graphics.FillRectangle(brushLineColorB, headerBounds);
         else
             e.Graphics.FillRectangle(brushLineColorA, headerBounds);
+
         e.Graphics.DrawString(rowIdx, font, Brushes.WhiteSmoke, headerBounds, centerFormat);
     }
-
 
     public void DoRowBackColor(DataGridViewCellFormattingEventArgs e)
     {

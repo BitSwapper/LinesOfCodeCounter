@@ -10,26 +10,24 @@ public record CodeFile
     public long TotalCharacterCount { get; set; }
     public long LongestLineOfCode { get; set; }
 
-    public CodeFile(FileInfo fileInfo)
+    public CodeFile(FileInfo fileInfo, string folderToExamine)
     {
         FileInfo = fileInfo ?? throw new ArgumentNullException(nameof(fileInfo));
         FileName = Path.GetFileNameWithoutExtension(fileInfo.Name);
-        FileLocation = fileInfo.DirectoryName ?? "NULL";
+        FileLocation = fileInfo.DirectoryName?.RemoveStartingMask(folderToExamine);
         FileExtension = fileInfo.Extension ?? "UNKNOWN";
         ReadFile();
     }
 
     void ReadFile()
     {
-        using(var reader = new StreamReader(FileInfo.FullName))
+        using var reader = new StreamReader(FileInfo.FullName);
+        string? line;
+        while((line = reader.ReadLine()) != null)
         {
-            string? line;
-            while((line = reader.ReadLine()) != null)
-            {
-                TotalLinesOfCode++;
-                TotalCharacterCount += line.Length;
-                LongestLineOfCode = Math.Max(LongestLineOfCode, line.Length);
-            }
+            TotalLinesOfCode++;
+            TotalCharacterCount += line.Length;
+            LongestLineOfCode = Math.Max(LongestLineOfCode, line.Length);
         }
     }
 }

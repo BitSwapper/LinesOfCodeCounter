@@ -1,6 +1,8 @@
 ﻿using System.Runtime.InteropServices;
 
-public static class NativeImports
+namespace LinesOfCodeCounter;
+
+public static class Native
 {
     public const int WM_NCLBUTTONDOWN = 0xA1;
     public const int HT_CAPTION = 0x2;

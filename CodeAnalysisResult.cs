@@ -8,7 +8,6 @@ public record CodeAnalysisResult
     public float AverageLinesPerFile { get; set; }
     public float AverageCharactersPerFile { get; set; }
     public float AverageCharactersPerLine { get; set; }
-    public HashSet<CodeFile> CodeFiles { get; set; }
 
     public CodeAnalysisResult(HashSet<CodeFile> codeFiles)
     {
@@ -18,7 +17,5 @@ public record CodeAnalysisResult
         AverageLinesPerFile = TotalFiles > 0 ? TotalLines / (float)TotalFiles : 0;
         AverageCharactersPerFile = TotalFiles > 0 ? TotalCharacters / (float)TotalFiles : 0;
         AverageCharactersPerLine = TotalLines > 0 ? TotalCharacters / (float)TotalLines : 0;
-
-        CodeFiles= codeFiles;
     }
 }
